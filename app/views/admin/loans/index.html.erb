@@ -1,0 +1,82 @@
+<div class="flex items-center justify-between mb-6">
+  <div>
+    <h1 class="page-heading">Active Loans</h1>
+    <p class="page-subtitle">Admin overview of all current loans</p>
+  </div>
+  <%= link_to "Add New Book", new_admin_book_path, class: "btn-primary" %>
+</div>
+
+<% if @overdue_loans.any? %>
+  <div class="mb-6">
+    <h2 style="color: #e74c3c; font-size: 1.1rem; font-weight: 700; margin-bottom: 12px;">
+      ⚠ Overdue (<%= @overdue_loans.count %>)
+    </h2>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Book</th>
+            <th>Borrower</th>
+            <th>Borrowed</th>
+            <th>Due Date</th>
+            <th>Days Overdue</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @overdue_loans.each do |loan| %>
+            <tr>
+              <td><strong><%= loan.book.title %></strong></td>
+              <td><%= loan.user.name %></td>
+              <td class="font-mono"><%= loan.borrowed_at.strftime("%b %d, %Y") %></td>
+              <td class="font-mono"><%= loan.due_date.strftime("%b %d, %Y") %></td>
+              <td><span class="badge badge-overdue"><%= (Date.current - loan.due_date).to_i %> days</span></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+<% end %>
+
+<h2 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 12px;">
+  All Active Loans (<%= @active_loans.count %>)
+</h2>
+
+<% if @active_loans.any? %>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Book</th>
+          <th>Author</th>
+          <th>Borrower</th>
+          <th>Borrowed</th>
+          <th>Due Date</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @active_loans.each do |loan| %>
+          <tr>
+            <td><strong><%= loan.book.title %></strong></td>
+            <td><%= loan.book.author %></td>
+            <td><%= loan.user.name %></td>
+            <td class="font-mono"><%= loan.borrowed_at.strftime("%b %d, %Y") %></td>
+            <td class="font-mono"><%= loan.due_date.strftime("%b %d, %Y") %></td>
+            <td>
+              <% if loan.overdue? %>
+                <span class="badge badge-overdue">Overdue</span>
+              <% else %>
+                <span class="badge badge-borrowed">Active</span>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+<% else %>
+  <div class="card empty-state">
+    <p>No active loans at this time.</p>
+  </div>
+<% end %>

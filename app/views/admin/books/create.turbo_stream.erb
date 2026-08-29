@@ -1,0 +1,10 @@
+<%= turbo_stream.replace "new_book_form" do %>
+  <div class="form-card text-center">
+    <h2 style="color: var(--accent-hex)">✓ Book Added</h2>
+    <p style="margin: 12px 0; color: var(--text-secondary);">
+      "<%= @book.title %>" by <%= @book.author %> has been added to the catalog.
+    </p>
+    <%= link_to "Add Another", new_admin_book_path, class: "btn-secondary", data: { turbo_frame: "new_book_form" } %>
+    <%= link_to "View Catalog", books_path, class: "btn-primary" %>
+  </div>
+<% end %>

@@ -1,0 +1,7 @@
+<%= turbo_stream.replace "loan_status" do %>
+  <%= render "books/loan_status", book: @book, user_loan: nil, error: nil %>
+<% end %>
+
+<%= turbo_stream.replace "flash" do %>
+  <div class="flash-notice">Book returned successfully.</div>
+<% end %>

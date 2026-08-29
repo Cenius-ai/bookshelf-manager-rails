@@ -1,0 +1,19 @@
+<h1 class="page-heading">Library Catalog</h1>
+<p class="page-subtitle"><%= @books.count %> books in the collection</p>
+
+<%= form_tag books_path, method: :get, class: "search-bar mb-6" do %>
+  <%= text_field_tag :query, params[:query], placeholder: "Search by title or author...",
+      class: "search-input" %>
+  <%= submit_tag "Search", class: "btn-primary btn-sm" %>
+<% end %>
+
+<% if @books.any? %>
+  <div class="book-grid">
+    <%= render partial: "book_card", collection: @books, as: :book %>
+  </div>
+<% else %>
+  <div class="card empty-state">
+    <p>No books match your search.</p>
+    <%= link_to "Clear search", books_path, class: "btn-secondary mt-4" %>
+  </div>
+<% end %>

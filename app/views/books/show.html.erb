@@ -1,0 +1,18 @@
+<%= link_to "← Back to catalog", books_path, class: "back-link" %>
+
+<div class="book-detail">
+  <h1><%= @book.title %></h1>
+  <p class="meta">by <strong><%= @book.author %></strong></p>
+
+  <% if @book.isbn.present? %>
+    <p class="meta">ISBN: <span class="font-mono"><%= @book.isbn %></span></p>
+  <% end %>
+
+  <% if @book.description.present? %>
+    <p class="description"><%= @book.description %></p>
+  <% end %>
+
+  <%= turbo_frame_tag "loan_status" do %>
+    <%= render "loan_status", book: @book, user_loan: @user_loan, error: nil %>
+  <% end %>
+</div>

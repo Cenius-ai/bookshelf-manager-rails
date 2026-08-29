@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= content_for(:title) || "BookShelf" %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= yield :head %>
+    <%= stylesheet_link_tag "application" %>
+    <%= javascript_importmap_tags %>
+  </head>
+  <body class="bg-near-black text-slate-100 font-sans">
+    <nav class="border-b-2 border-slate-700 bg-near-black">
+      <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+        <div class="flex items-center gap-8">
+          <%= link_to "BookShelf", books_path, class: "text-2xl font-bold tracking-tight text-accent no-underline" %>
+          <div class="flex gap-4">
+            <%= link_to "Catalog", books_path, class: "nav-link #{'nav-active' if current_page?(books_path)}" %>
+            <% if user_signed_in? && current_user.admin? %>
+              <%= link_to "Admin", admin_loans_path, class: "nav-link #{'nav-active' if request.path.start_with?('/admin')}" %>
+            <% end %>
+          </div>
+        </div>
+        <div class="flex items-center gap-4">
+          <% if user_signed_in? %>
+            <span class="text-sm text-slate-400">
+              <%= current_user.name %>
+              <% if current_user.admin? %>
+                <span class="ml-1 px-2 py-0.5 text-xs border border-accent text-accent rounded font-mono">ADMIN</span>
+              <% end %>
+            </span>
+            <%= button_to "Log out", destroy_user_session_path, method: :delete,
+                class: "text-sm text-slate-400 hover:text-white bg-transparent border border-slate-600 px-3 py-1 rounded cursor-pointer" %>
+          <% else %>
+            <%= link_to "Log in", new_user_session_path, class: "nav-link" %>
+            <%= link_to "Sign up", new_user_registration_path, class: "btn-primary text-sm" %>
+          <% end %>
+        </div>
+      </div>
+    </nav>
+
+    <% if notice.present? %>
+      <div class="max-w-6xl mx-auto px-6 mt-4">
+        <div class="flash-notice"><%= notice %></div>
+      </div>
+    <% end %>
+    <% if alert.present? %>
+      <div class="max-w-6xl mx-auto px-6 mt-4">
+        <div class="flash-alert"><%= alert %></div>
+      </div>
+    <% end %>
+
+    <main class="max-w-6xl mx-auto px-6 py-8">
+      <%= yield %>
+    </main>
+  </body>
+</html>

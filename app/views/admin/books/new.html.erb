@@ -1,0 +1,8 @@
+<h1 class="page-heading">Add New Book</h1>
+<p class="page-subtitle">Add a book to the library catalog</p>
+
+<%= turbo_frame_tag "new_book_form" do %>
+  <%= render "form", book: @book %>
+<% end %>
+
+<%= link_to "← Back to catalog", books_path, class: "back-link mt-6" %>

@@ -1,0 +1,29 @@
+<%# locals: book, user_loan, error %>
+<div class="mt-6 flex items-center gap-4">
+  <% if error.present? %>
+    <p class="error-message"><%= error %></p>
+  <% end %>
+
+  <% if user_loan.present? %>
+    <span class="badge badge-borrowed">You have this book</span>
+    <span class="text-sm text-slate-400">
+      Borrowed <%= time_ago_in_words(user_loan.borrowed_at) %> ago &middot;
+      Due <%= user_loan.due_date.strftime("%b %d, %Y") %>
+      <% if user_loan.overdue? %>
+        <span class="badge badge-overdue ml-2">Overdue</span>
+      <% end %>
+    </span>
+    <%= button_to "Return Book", return_loan_path(user_loan),
+          method: :patch,
+          class: "btn-danger btn-sm",
+          form: { data: { turbo_frame: "loan_status" } } %>
+  <% elsif book.available? %>
+    <span class="badge badge-available">Available</span>
+    <%= button_to "Borrow", borrow_book_path(book),
+          method: :post,
+          class: "btn-primary btn-sm",
+          form: { data: { turbo_frame: "loan_status" } } %>
+  <% else %>
+    <span class="badge badge-borrowed">Borrowed by <%= book.current_borrower.name %></span>
+  <% end %>
+</div>
