@@ -1,0 +1,12 @@
+/.bundle
+/db/*.sqlite3
+/db/*.sqlite3-*
+/db/*.sqlite3-*
+/log/*
+/tmp/*
+/storage/*
+!/storage/.keep
+/tmp/storage/*
+!/tmp/storage/.keep
+/vendor/bundle
+.env
