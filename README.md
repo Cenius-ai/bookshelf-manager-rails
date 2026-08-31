@@ -23,7 +23,7 @@ _Local clone? See [Quick start](#quick-start) below. cenius.ai is the zero-setup
 
 ## Architecture
 
-`install.sh` wires up dependencies and loads seed records; after it runs the app has real data to show. The Ruby on Rails codebase (1,673 files) is self-contained — no external services needed to evaluate it. Top-level layout: `app/`, `bin/`, `config/`, `db/`, `lib/`, `log/`, `public/`, `storage/`. Step-by-step setup guide: [`INSTALL.md`](INSTALL.md).
+`install.sh` wires up dependencies and loads seed records; after it runs the app has real data to show. The Ruby on Rails codebase (1,662 files) is self-contained — no external services needed to evaluate it. Top-level layout: `app/`, `bin/`, `config/`, `db/`, `lib/`, `log/`, `public/`, `storage/`. Step-by-step setup guide: [`INSTALL.md`](INSTALL.md).
 
 ## Features
 
