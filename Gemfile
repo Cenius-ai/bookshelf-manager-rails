@@ -10,7 +10,7 @@ gem "puma", ">= 5.0"
 gem "importmap-rails"
 gem "turbo-rails", "~> 2.0"
 gem "stimulus-rails", "~> 1.3"
-gem "devise", "~> 4.9"
+gem "devise", "~> 5.0"
 gem "bcrypt", "~> 3.1"
 gem "tzinfo-data", platforms: %i[ windows jruby ]
 gem "bootsnap", require: false
